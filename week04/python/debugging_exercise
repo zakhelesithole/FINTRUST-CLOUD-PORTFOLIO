@@ -1,0 +1,86 @@
+# ============================================
+# Debugging Exercise
+# Week 4 Day 2 - Cloud to Solutions Accelerator
+# ============================================
+
+print("=" * 70)
+print("DEBUGGING EXERCISE")
+print("=" * 70)
+print()
+
+# ============================================
+# FIX THIS CODE - Find and fix 3 bugs
+# ============================================
+
+print("1. Calculate average transaction amount")
+print("-" * 40)
+
+transactions = [
+    {"id": "TXN001", "amount": 500.0, "type": "debit"},
+    {"id": "TXN002", "amount": 1200.0, "type": "credit"},
+    {"id": "TXN003", "amount": 75.50, "type": "debit"},
+]
+
+# FIX: total initialized as float not string
+total = 0.0
+for txn in transactions:
+    total += txn["amount"]
+
+print(f"  Total: R{total:.2f}")
+
+# FIX: handle empty list case
+if len(transactions) > 0:
+    avg = total / len(transactions)
+    print(f"  Average: R{avg:.2f}")
+else:
+    print("  No transactions to average")
+print()
+
+# ============================================
+# FIX THIS CODE - Account tier with bug
+# ============================================
+print("2. Account tier calculator")
+print("-" * 40)
+
+def get_account_tier_fixed(balance):
+    if balance >= 100000:
+        return "Platinum"
+    elif balance >= 50000:
+        return "Gold"
+    elif balance >= 10000:
+        return "Silver"
+    else:
+        return "Standard"
+
+balances = [150000, 75000, 25000, 5000]
+for balance in balances:
+    tier = get_account_tier_fixed(balance)
+    print(f"  R{balance:,.2f} -> {tier}")
+print()
+
+# ============================================
+# FIX THIS CODE - Daily limit with bug
+# ============================================
+print("3. Daily limit checker")
+print("-" * 40)
+
+def check_daily_limit_fixed(limit, used, amount):
+    remaining = limit - used
+    return amount <= remaining
+
+account = {"daily_limit": 5000.0, "daily_used": 4500.0}
+amount = 600.0
+
+print(f"  Limit: R{account['daily_limit']:.2f}")
+print(f"  Used: R{account['daily_used']:.2f}")
+print(f"  Requested: R{amount:.2f}")
+
+if check_daily_limit_fixed(account["daily_limit"], account["daily_used"], amount):
+    print("  Within daily limit")
+else:
+    print("  Daily limit exceeded")
+print()
+
+print("=" * 70)
+print("EXERCISE COMPLETED")
+print("=" * 70)
