@@ -6,8 +6,3 @@
 - Basic SELECT queries
 - COUNT, SUM, DISTINCT functions
 
-**What was confusing:**
-[Write your thoughts here]
-
-**My question for tomorrow:**
-[Write your question here]
