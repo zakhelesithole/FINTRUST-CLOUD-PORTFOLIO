@@ -5,3 +5,7 @@ Topics: Window Functions (OVER, PARTITION BY, ORDER BY), Ranking, Lead/Lag, NTIL
 ## Folder Structure
 - `/sql/` - SQL scripts
 - `/notes/` - Daily reflections
+
+## Day 4
+- Python Concurrency (Threading, Asyncio).
+
