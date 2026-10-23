@@ -11,3 +11,7 @@ Topics: Python packages, 6Rs classifier, SQL views.
 ## Day 2
 - DMS helpers, CloudWatch CDC metrics, and Customer/Transaction SQL views.
 
+
+## Day 3
+- DataSync helpers, throttling, and BI dashboard SQL views.
+
