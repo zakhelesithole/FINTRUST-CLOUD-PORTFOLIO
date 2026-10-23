@@ -7,3 +7,7 @@ Topics: Python packages, 6Rs classifier, SQL views.
 - `/sql/` - SQL scripts and views
 - `/notes/` - Daily reflections
 - `run_classifier.py` - Test script
+
+## Day 2
+- DMS helpers, CloudWatch CDC metrics, and Customer/Transaction SQL views.
+
