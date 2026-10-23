@@ -14,3 +14,7 @@ Topics: Cost Explorer API, CSV/HTML generation, S3 uploads.
 ## Day 2
 - Lambda Scheduled Reports and IAM/SCP Troubleshooting.
 
+
+## Day 3
+- Mock Exam 8 and Portfolio Audit.
+
