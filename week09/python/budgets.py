@@ -1,17 +1,9 @@
 ﻿import boto3
 
-# Budgets API is always us-east-1
 budgets = boto3.client('budgets', region_name='us-east-1')
-sts = boto3.client('sts')
-
-try:
-    ACCOUNT_ID = sts.get_caller_identity()['Account']
-except Exception as e:
-    print(f"Could not get Account ID: {e}")
-    ACCOUNT_ID = "123456789012"
+ACCOUNT_ID = boto3.client('sts').get_caller_identity()['Account']
 
 def create_monthly_budget(budget_name, limit_usd, alert_pct, email):
-    """Create a monthly cost budget with a single percentage-threshold alert."""
     try:
         budgets.create_budget(
             AccountId=ACCOUNT_ID,
@@ -33,7 +25,7 @@ def create_monthly_budget(budget_name, limit_usd, alert_pct, email):
         )
         print(f'Budget "{budget_name}" created successfully.')
     except Exception as e:
-        print(f"Failed to create budget (might need permissions): {e}")
+        print(f"Failed to create budget: {e}")
 
 def list_budgets():
     try:
