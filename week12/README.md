@@ -10,3 +10,7 @@ Topics: Cost Explorer API, CSV/HTML generation, S3 uploads.
 ## Day 1
 - Automated Cost Reports (CSV/HTML)
 
+
+## Day 2
+- Lambda Scheduled Reports and IAM/SCP Troubleshooting.
+
