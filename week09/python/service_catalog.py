@@ -5,7 +5,6 @@ sc = boto3.client('servicecatalog', region_name='af-south-1')
 def list_catalog():
     """List portfolios and products from Service Catalog."""
     try:
-        # Get accepted shares and owned portfolios
         portfolios = sc.list_accepted_portfolio_shares().get('PortfolioDetails', [])
         own = sc.list_portfolios().get('PortfolioDetails', [])
         all_portfolios = {p['Id']: p for p in portfolios + own}
@@ -18,7 +17,6 @@ def list_catalog():
             print(f"\nPortfolio: {portfolio['DisplayName']} ({pid})")
 
             try:
-                # List products in this portfolio
                 products = sc.search_products_as_admin(PortfolioId=pid).get('ProductViewDetails', [])
                 for pv in products:
                     p = pv['ProductViewSummary']

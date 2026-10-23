@@ -2,7 +2,7 @@
 import json
 from datetime import datetime
 from collections import defaultdict
-from tag_auditor import audit_tag_compliance, REQUIRED_TAGS
+from tag_auditor import audit_tag_compliance
 
 s3 = boto3.client('s3')
 tagging = boto3.client('resourcegroupstaggingapi', region_name='af-south-1')
@@ -13,10 +13,8 @@ def generate_governance_report():
     initial_violations = audit_tag_compliance()
     initial_count = len(initial_violations)
     
-    # Calculate total scanned (approximate)
     total_scanned = initial_count
     try:
-        # We do a quick count of all resources to get total_scanned
         paginator = tagging.get_paginator('get_resources')
         total_scanned = sum(len(page['ResourceTagMappingList']) for page in paginator.paginate())
     except Exception:
@@ -34,7 +32,7 @@ def generate_governance_report():
             )
             remediated += 1
         except Exception:
-            pass # Skip if no permission or resource doesn't support it
+            pass
 
     print(f"   Successfully remediated: {remediated}")
 
@@ -42,7 +40,6 @@ def generate_governance_report():
     remaining = audit_tag_compliance()
     remaining_count = len(remaining)
 
-    # Group by service for final report
     by_service = defaultdict(int)
     for arn in remaining.keys():
         parts = arn.split(':')
@@ -58,7 +55,6 @@ def generate_governance_report():
         'violations_by_service': dict(by_service)
     }
 
-    # Save to S3
     today = datetime.utcnow().strftime('%Y-%m-%d')
     key = f"tag-audit/{today}.json"
     
