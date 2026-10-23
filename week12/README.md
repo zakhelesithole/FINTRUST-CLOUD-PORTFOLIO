@@ -6,3 +6,7 @@ Topics: Cost Explorer API, CSV/HTML generation, S3 uploads.
 - `/fintrust_migration/` - The Python package
 - `/notes/` - Daily reflections
 - `generate_report.py` - Top-level script
+
+## Day 2
+- Lambda Scheduled Reports and IAM/SCP Troubleshooting.
+
