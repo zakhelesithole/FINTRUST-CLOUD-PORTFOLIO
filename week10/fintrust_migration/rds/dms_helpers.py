@@ -51,33 +51,31 @@ def start_task(task_arn, start_type='resume-processing'):
     )
     return wait_for_status(task_arn, 'running')
 
-def stop_task(task_arn):
-    dms = get_client('dms')
-    dms.stop_replication_task(ReplicationTaskArn=task_arn)
-    return wait_for_status(task_arn, 'stopped')
-
 def get_cdc_latency(replication_instance_id, task_identifier, lookback_minutes=5):
     cw = get_client('cloudwatch')
     now = datetime.now(timezone.utc)
 
     def _get_metric(metric_name):
-        resp = cw.get_metric_statistics(
-            Namespace='AWS/DMS',
-            MetricName=metric_name,
-            Dimensions=[
-                {'Name': 'ReplicationInstanceIdentifier', 'Value': replication_instance_id},
-                {'Name': 'ReplicationTaskIdentifier', 'Value': task_identifier},
-            ],
-            StartTime=now - timedelta(minutes=lookback_minutes),
-            EndTime=now,
-            Period=60,
-            Statistics=['Maximum']
-        )
-        points = resp.get('Datapoints', [])
-        if not points:
+        try:
+            resp = cw.get_metric_statistics(
+                Namespace='AWS/DMS',
+                MetricName=metric_name,
+                Dimensions=[
+                    {'Name': 'ReplicationInstanceIdentifier', 'Value': replication_instance_id},
+                    {'Name': 'ReplicationTaskIdentifier', 'Value': task_identifier},
+                ],
+                StartTime=now - timedelta(minutes=lookback_minutes),
+                EndTime=now,
+                Period=60,
+                Statistics=['Maximum']
+            )
+            points = resp.get('Datapoints', [])
+            if not points:
+                return None
+            latest = sorted(points, key=lambda x: x['Timestamp'])[-1]
+            return latest['Maximum']
+        except Exception:
             return None
-        latest = sorted(points, key=lambda x: x['Timestamp'])[-1]
-        return latest['Maximum']
 
     source_lag = _get_metric('CDCLatencySource')
     target_lag = _get_metric('CDCLatencyTarget')
@@ -88,3 +86,14 @@ def get_cdc_latency(replication_instance_id, task_identifier, lookback_minutes=5
         'cutover_safe': (source_lag is not None) and (source_lag < 30),
         'checked_at': now.isoformat()
     }
+
+def is_cutover_ready(task_arn, replication_instance_id):
+    """Checks if task is running and source latency is < 30s."""
+    status = get_task_status(task_arn)
+    if "error" in status:
+        return False
+    latency = get_cdc_latency(replication_instance_id, status['identifier'])
+    return (
+        status['status'] == 'running' and
+        latency['cutover_safe']
+    )
