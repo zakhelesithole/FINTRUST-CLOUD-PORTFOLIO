@@ -4,7 +4,6 @@ from datetime import date, timedelta
 from pathlib import Path
 
 def get_monthly_spend_by_service(months_back=1):
-    """Return list of (service, cost_usd) tuples for the past N months."""
     ce = boto3.client('ce', region_name='us-east-1')
     today = date.today()
     start = (today.replace(day=1) - timedelta(days=months_back * 31)).strftime('%Y-%m-%d')
@@ -18,7 +17,7 @@ def get_monthly_spend_by_service(months_back=1):
             GroupBy=[{'Type': 'DIMENSION', 'Key': 'SERVICE'}]
         )
     except Exception as e:
-        print(f"Error fetching Cost Explorer data: {e}")
+        print(f"Error fetching data: {e}")
         return []
 
     results = []
@@ -31,7 +30,6 @@ def get_monthly_spend_by_service(months_back=1):
     return results
 
 def write_csv_report(data, output_path='cost_report.csv'):
-    """Write cost data to CSV. Returns path to written file."""
     path = Path(output_path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open('w', newline='') as f:
@@ -41,7 +39,6 @@ def write_csv_report(data, output_path='cost_report.csv'):
     return path
 
 def write_html_report(data, output_path='cost_report.html'):
-    """Write a simple HTML cost report. Returns path to written file."""
     rows = ''.join(
         f"<tr><td>{r['period']}</td><td>{r['service']}</td><td>${r['cost_usd']:.2f}</td></tr>\n"
         for r in sorted(data, key=lambda x: x['cost_usd'], reverse=True)
@@ -58,19 +55,17 @@ def write_html_report(data, output_path='cost_report.html'):
     return path
 
 def get_per_account_spend(months_back=1):
-    """Extension: Get spend grouped by linked account and service."""
     ce = boto3.client('ce', region_name='us-east-1')
     org = boto3.client('organizations', region_name='us-east-1')
     
-    # 1. Fetch account names
     account_map = {}
     try:
         paginator = org.get_paginator('list_accounts')
         for page in paginator.paginate():
             for acct in page['Accounts']:
                 account_map[acct['Id']] = acct['Name']
-    except Exception as e:
-        print(f"Could not fetch Organizations data (ignoring names): {e}")
+    except Exception:
+        pass
 
     today = date.today()
     start = (today.replace(day=1) - timedelta(days=months_back * 31)).strftime('%Y-%m-%d')
@@ -86,8 +81,7 @@ def get_per_account_spend(months_back=1):
                 {'Type': 'DIMENSION', 'Key': 'SERVICE'}
             ]
         )
-    except Exception as e:
-        print(f"Error fetching multi-account data: {e}")
+    except Exception:
         return []
 
     results = []

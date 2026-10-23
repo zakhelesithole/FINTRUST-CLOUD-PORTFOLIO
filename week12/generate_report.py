@@ -15,7 +15,6 @@ def main():
     today = date.today()
     folder = f"reports/{today.year}/{today.month:02d}"
 
-    # 1. Generate Standard Report
     print("\n1. Fetching monthly spend by service...")
     data = get_monthly_spend_by_service(months_back=1)
     
@@ -27,7 +26,6 @@ def main():
         write_html_report(data, html_path)
         print(f"Created {csv_path} and {html_path}")
         
-        # Upload to S3 (wrapped in try/except for sandbox environments)
         print("\n2. Uploading to S3...")
         s3 = boto3.client('s3')
         bucket = 'fintrust-audit-bucket'
@@ -41,7 +39,6 @@ def main():
     else:
         print("No cost data found or missing permissions.")
 
-    # 2. Generate Multi-Account Report
     print("\n3. Fetching per-account spend...")
     acct_data = get_per_account_spend(months_back=1)
     if acct_data:
@@ -52,8 +49,6 @@ def main():
             writer.writeheader()
             writer.writerows(acct_data)
         print(f"Created {acct_csv}")
-    else:
-        print("No multi-account data found.")
 
 if __name__ == "__main__":
     main()
