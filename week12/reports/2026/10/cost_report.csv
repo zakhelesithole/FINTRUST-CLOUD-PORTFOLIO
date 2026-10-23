@@ -1,0 +1,25 @@
+period,service,cost_usd
+2026-08-31,AWS Glue,0.0
+2026-09-01,AWS Data Transfer,-4.78e-08
+2026-09-01,AWS Glue,0.0
+2026-09-01,AWS Key Management Service,0.0
+2026-09-01,AWS Secrets Manager,0.0
+2026-09-01,Amazon Simple Notification Service,0.0
+2026-09-01,Amazon Simple Queue Service,0.0
+2026-09-01,Amazon Simple Storage Service,4.74e-08
+2026-09-01,Tax,0.0
+2026-10-01,AWS Data Transfer,-9.32982e-05
+2026-10-01,AWS Glue,0.0
+2026-10-01,AWS Key Management Service,-2.06e-06
+2026-10-01,AWS Lambda,0.0
+2026-10-01,AWS Secrets Manager,0.0
+2026-10-01,Amazon API Gateway,0.0
+2026-10-01,Amazon DynamoDB,0.0
+2026-10-01,Amazon Relational Database Service,9.32297e-05
+2026-10-01,Amazon Simple Email Service,0.0
+2026-10-01,Amazon Simple Notification Service,0.0
+2026-10-01,Amazon Simple Queue Service,0.0
+2026-10-01,Amazon Simple Storage Service,6.52e-08
+2026-10-01,Amazon Virtual Private Cloud,-2e-10
+2026-10-01,AmazonCloudWatch,0.0
+2026-10-01,Tax,0.0

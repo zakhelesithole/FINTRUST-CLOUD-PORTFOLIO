@@ -1,0 +1,25 @@
+period,account_id,account_name,service,cost_usd
+2026-08-31,471116064922,Unknown,AWS Glue,0.0
+2026-09-01,471116064922,Unknown,AWS Data Transfer,-4.78e-08
+2026-09-01,471116064922,Unknown,AWS Glue,0.0
+2026-09-01,471116064922,Unknown,AWS Key Management Service,0.0
+2026-09-01,471116064922,Unknown,AWS Secrets Manager,0.0
+2026-09-01,471116064922,Unknown,Amazon Simple Notification Service,0.0
+2026-09-01,471116064922,Unknown,Amazon Simple Queue Service,0.0
+2026-09-01,471116064922,Unknown,Amazon Simple Storage Service,4.74e-08
+2026-09-01,471116064922,Unknown,Tax,0.0
+2026-10-01,471116064922,Unknown,AWS Data Transfer,-9.32982e-05
+2026-10-01,471116064922,Unknown,AWS Glue,0.0
+2026-10-01,471116064922,Unknown,AWS Key Management Service,-2.06e-06
+2026-10-01,471116064922,Unknown,AWS Lambda,0.0
+2026-10-01,471116064922,Unknown,AWS Secrets Manager,0.0
+2026-10-01,471116064922,Unknown,Amazon API Gateway,0.0
+2026-10-01,471116064922,Unknown,Amazon DynamoDB,0.0
+2026-10-01,471116064922,Unknown,Amazon Relational Database Service,9.32297e-05
+2026-10-01,471116064922,Unknown,Amazon Simple Email Service,0.0
+2026-10-01,471116064922,Unknown,Amazon Simple Notification Service,0.0
+2026-10-01,471116064922,Unknown,Amazon Simple Queue Service,0.0
+2026-10-01,471116064922,Unknown,Amazon Simple Storage Service,6.52e-08
+2026-10-01,471116064922,Unknown,Amazon Virtual Private Cloud,-2e-10
+2026-10-01,471116064922,Unknown,AmazonCloudWatch,0.0
+2026-10-01,471116064922,Unknown,Tax,0.0
